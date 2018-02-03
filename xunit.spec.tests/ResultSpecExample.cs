@@ -2,12 +2,11 @@ using System;
 using System.Threading.Tasks;
 using Autofac.Extras.Moq;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace xunit.spec.Tests
+namespace Xunit.Spec.Tests
 {
-    [TestClass]
-    public class ResultSpecExample : ResultSpec<object, object>
+    public class When_running_a_result_spec : ResultSpec<object, object>
     {
         private SpecState _state = SpecState.Arranging;
         private object _result;
@@ -28,9 +27,9 @@ namespace xunit.spec.Tests
         protected override void CleanUp() => Assert(SpecState.Cleaning, SpecState.Finished);
 
 
-        [TestMethod] public void It_should_run_a_test_transiently() => Assert(SpecState.Testing, SpecState.Cleaning);
+        [Fact] public void It_should_run_a_test_transiently() => Assert(SpecState.Testing, SpecState.Cleaning);
 
-        [TestMethod]
+        [Fact]
         public void It_should_have_correct_result_transiently()
         {
             Assert(SpecState.Testing, SpecState.Cleaning);

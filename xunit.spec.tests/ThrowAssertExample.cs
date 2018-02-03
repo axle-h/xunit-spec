@@ -3,9 +3,10 @@ using System.Threading.Tasks;
 using Autofac.Extras.Moq;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Spec.Util;
 
-namespace xunit.spec.Tests
+namespace Xunit.Spec.Tests
 {
     public class NoBaconException : Exception
     {
@@ -30,9 +31,8 @@ namespace xunit.spec.Tests
             throw new NoBaconException();
         }
     }
-
-    [TestClass]
-    public class ThrowAssertExample : ResultSpec<BaconService, BaconButty>
+    
+    public class When_expecting_subject_action_to_throw : ResultSpec<BaconService, BaconButty>
     {
         protected override Task ArrangeAsync(AutoMock mock)
         {
@@ -43,6 +43,6 @@ namespace xunit.spec.Tests
 
         protected override Task<BaconButty> ActAsync(BaconService subject) => subject.BaconButtyPlzAsync();
 
-        [TestMethod] public void The_exception_should_be_a_NoBaconException() => Exception().Should().BeOfType<NoBaconException>();
+        [Fact] public void The_exception_should_be_a_NoBaconException() => Exception().Should().BeOfType<NoBaconException>();
     }
 }

@@ -5,28 +5,43 @@ using System.Threading.Tasks;
 using Autofac.Core;
 using Autofac.Extras.Moq;
 using Bogus;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace xunit.spec
+namespace Xunit.Spec.Base
 {
     /// <inheritdoc />
     /// <summary>
     /// Base class for all specifications.
+    /// This is not intended to be implemented by unit tests.
     /// </summary>
     /// <typeparam name="TSubject">The type of the subject.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     /// <seealso cref="T:Xunit.IAsyncLifetime" />
-    public abstract class SpecBase<TSubject, TResult> : IDisposable
+    public abstract class SpecBase<TSubject, TResult> : IAsyncLifetime
     {
         private readonly List<Parameter> _parameters = new List<Parameter>();
+        private readonly bool _disposeFixture;
         private bool _shouldThrow;
-        
-        internal Fixture Fixture { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpecBase{TSubject, TResult}" /> class.
+        /// </summary>
+        /// <param name="fixture">The fixture.</param>
+        /// <param name="disposeFixture">if set to <c>true</c> [dispose fixture].</param>
+        protected SpecBase(Fixture fixture, bool disposeFixture)
+        {
+            Fixture = fixture;
+            _disposeFixture = disposeFixture;
+        }
+
+        /// <summary>
+        /// Gets the test fixture.
+        /// </summary>
+        protected Fixture Fixture { get; }
 
         /// <summary>
         /// A non-generic faker instance for convenience.
         /// </summary>
-        protected readonly Faker Faker = new Faker();
+        protected Faker Faker { get; } = new Faker();
         
         /// <summary>
         /// Gets the result from the fixture.
@@ -40,15 +55,15 @@ namespace xunit.spec
         /// Gets the exception of the specified type that was thown by the act step of this specification.
         /// </summary>
         /// <value>
-        /// The exception of the specified type that was thown by the act step of this specification
+        /// The exception of the specified type that was thrown by the act step of this specification
         /// </value>
         protected TException Exception<TException>() where TException : Exception => (TException) Fixture.Exception;
 
         /// <summary>
-        /// Gets the exception that was thown by the act step of this specification.
+        /// Gets the exception that was thrown by the act step of this specification.
         /// </summary>
         /// <value>
-        /// The exception that was thown by the act step of this specification
+        /// The exception that was thrown by the act step of this specification
         /// </value>
         protected Exception Exception() => Fixture.Exception;
 
@@ -81,14 +96,6 @@ namespace xunit.spec
         protected abstract Task ArrangeAsync(AutoMock mock);
 
         /// <summary>
-        /// Performs the specification action.
-        /// </summary>
-        /// <param name="subject">The subject.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        internal abstract Task<TResult> ActInternalAsync(TSubject subject);
-
-        /// <summary>
         /// Optional clean up method that runs after tests.
         /// </summary>
         protected virtual void CleanUp()
@@ -96,23 +103,34 @@ namespace xunit.spec
         }
         
         /// <summary>
-        /// Initializes the specification.
+        /// Performs the specification action.
         /// </summary>
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            Fixture = new Fixture();
-            Fixture.SetupAsync<TSubject, TResult>(ArrangeAsync,
-                                                  ActInternalAsync,
-                                                  () => _parameters.ToArray(),
-                                                  () => _shouldThrow,
-                                                  CleanUp).ConfigureAwait(false).GetAwaiter().GetResult();
-        }
+        /// <param name="subject">The subject.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        internal abstract Task<TResult> ActInternalAsync(TSubject subject);
         
-        /// <inheritdoc />
+        public async Task InitializeAsync()
+        {
+            await Fixture.SetupAsync<TSubject, TResult>(ArrangeAsync,
+                                                         ActInternalAsync,
+                                                         () => _parameters.ToArray(),
+                                                         () => _shouldThrow,
+                                                         CleanUp);
+        }
+
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Called when an object is no longer needed. Called just before <see cref="M:System.IDisposable.Dispose" />
+        /// if the class also implements that.
         /// </summary>
-        public void Dispose() => Fixture?.Dispose();
+        /// <returns></returns>
+        public Task DisposeAsync()
+        {
+            if (_disposeFixture)
+            {
+                Fixture.Dispose();
+            }
+            return Task.CompletedTask;
+        }
     }
 }

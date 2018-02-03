@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Autofac.Extras.Moq;
 using AutoMapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace xunit.spec
+namespace Xunit.Spec.Automapper
 {
     /// <inheritdoc />
     /// <summary>
@@ -13,7 +12,7 @@ namespace xunit.spec
     /// <typeparam name="TSource">The type of the source.</typeparam>
     /// <typeparam name="TDestination">The type of the destination.</typeparam>
     /// <seealso cref="T:xunit.spec.SyncTransientSimpleSpec`1" />
-    [TestCategory("Mapping")]
+    [Trait("Category", "AutoMapper")]
     public abstract class MappingSpec<TSource, TDestination> : SyncResultSpec<Mapper, TDestination>
     {
         /// <summary>
@@ -50,7 +49,7 @@ namespace xunit.spec
         /// Optionally generates the mapping destination.
         /// </summary>
         /// <returns></returns>
-        protected virtual TDestination GenerateDestination() => throw new NotImplementedException(nameof(GenerateDestination));
+        protected virtual TDestination GenerateDestination() => throw new NotSupportedException(nameof(GenerateDestination));
 
         /// <inheritdoc />
         /// <summary>
@@ -68,7 +67,7 @@ namespace xunit.spec
                 mapper.Map(Source, destination);
                 return destination;
             }
-            catch (NotImplementedException nse)
+            catch (NotSupportedException nse)
             {
                 if (nse.Message != nameof(GenerateDestination))
                 {

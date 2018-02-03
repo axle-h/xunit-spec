@@ -1,13 +1,18 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Bogus;
 
-namespace xunit.spec
+namespace Xunit.Spec
 {
     /// <summary>
     /// A simple specification without a subject or mocking container.
     /// </summary>
-    public abstract class SimpleSpec
+    public abstract class SimpleSpec : IAsyncLifetime
     {
+        /// <summary>
+        /// A non-generic faker instance for convenience.
+        /// </summary>
+        protected readonly Faker Faker = new Faker();
+
         /// <summary>
         /// Arranges the specification.
         /// </summary>
@@ -33,11 +38,11 @@ namespace xunit.spec
         /// Called immediately after the class has been created, before it is used.
         /// </summary>
         /// <returns></returns>
-        [TestInitialize]
-        public void TestInitialize()
+        public Task InitializeAsync()
         {
             Arrange();
             Act();
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -45,10 +50,10 @@ namespace xunit.spec
         /// if the class also implements that.
         /// </summary>
         /// <returns></returns>
-        [TestCleanup]
-        public void TestCleanup()
+        public Task DisposeAsync()
         {
             CleanUp();
+            return Task.CompletedTask;
         }
     }
 }

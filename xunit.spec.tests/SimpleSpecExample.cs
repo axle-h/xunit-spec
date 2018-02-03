@@ -1,11 +1,10 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace xunit.spec.Tests
+namespace Xunit.Spec.Tests
 {
-    [TestClass]
-    public class SimpleSpecExample : SimpleSpec
+    public class When_running_a_simple_spec : SimpleSpec
     {
         private SpecState _state = SpecState.Arranging;
 
@@ -15,7 +14,7 @@ namespace xunit.spec.Tests
 
         protected override void CleanUp() => Assert(SpecState.Cleaning, SpecState.Finished);
 
-        [TestMethod] public void It_should_run_a_test_transiently() => Assert(SpecState.Testing, SpecState.Cleaning);
+        [Fact] public void It_should_run_a_test_transiently() => Assert(SpecState.Testing, SpecState.Cleaning);
 
         private void Assert(SpecState expected, SpecState next)
         {

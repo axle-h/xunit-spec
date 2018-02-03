@@ -2,11 +2,10 @@ using System;
 using System.Threading.Tasks;
 using Autofac.Extras.Moq;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace xunit.spec.Tests
+namespace Xunit.Spec.Tests
 {
-    public class SpecExample : Spec<object>
+    public class When_running_a_spec : Spec<object>
     {
         private SpecState _state = SpecState.Arranging;
         
@@ -24,12 +23,12 @@ namespace xunit.spec.Tests
 
         protected override void CleanUp() => Assert(SpecState.Cleaning, SpecState.Finished);
 
-        [TestMethod] public void It_should_run_a_test_transiently() => AssertTransientTest();
+        [Fact] public void It_should_run_a_test_transiently() => AssertTransientTest();
 
-        [DataTestMethod]
-        [DataRow(1)]
-        [DataRow(2)]
-        [DataRow(3)]
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
         public void It_should_run_a_data_driven_test_transiently(int n) => AssertTransientTest();
 
         private void AssertTransientTest() => Assert(SpecState.Testing, SpecState.Cleaning);

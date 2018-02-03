@@ -4,7 +4,7 @@ using Autofac.Extras.Moq;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace xunit.spec
+namespace Xunit.Spec.Util
 {
     /// <summary>
     /// Extensions for the <see cref="AutoMock"/> container.

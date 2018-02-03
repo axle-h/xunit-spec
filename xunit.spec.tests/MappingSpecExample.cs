@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using AutoMapper;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit.Spec.Automapper;
 
-namespace xunit.spec.Tests
+namespace Xunit.Spec.Tests
 {
     public class PocoSource
     {
@@ -27,11 +27,10 @@ namespace xunit.spec.Tests
             CreateMap<PocoSource, PocoDestination>();
         }
     }
-
-    [TestClass]
-    public class MappingSpecExample : MappingSpec<PocoSource, PocoDestination>
+    
+    public class When_mapping_from_PocoSource_to_PocoDestination : MappingSpec<PocoSource, PocoDestination>
     {
-        protected override ICollection<Type> ProfileTypes { get; } = new[] { typeof(MappingSpecExample) };
+        protected override ICollection<Type> ProfileTypes { get; } = new[] { typeof(PocoProfile) };
 
         protected override PocoSource GenerateSource() => new PocoSource
                                                           {
@@ -39,8 +38,8 @@ namespace xunit.spec.Tests
                                                               String = Faker.Company.Bs()
                                                           };
 
-        [TestMethod] public void It_should_map_String() => Destination.String.Should().Be(Source.String);
+        [Fact] public void It_should_map_String() => Destination.String.Should().Be(Source.String);
 
-        [TestMethod] public void It_should_map_Int() => Destination.Int.Should().Be(Source.Int);
+        [Fact] public void It_should_map_Int() => Destination.Int.Should().Be(Source.Int);
     }
 }

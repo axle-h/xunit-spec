@@ -1,0 +1,12 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+shallow_clone: true
+
+build_script:
+  - dotnet restore
+  - dotnet pack -c Release -o ../artifacts xunit.spec/xunit.spec.csproj /p:PackageVersion=%APPVEYOR_BUILD_VERSION% /p:Version=%APPVEYOR_BUILD_VERSION%  /p:AssemblyVersion=%APPVEYOR_BUILD_VERSION%
+
+test_script:
+  - cd xunit.spec.tests
+  - dotnet xunit
+  - cd ..

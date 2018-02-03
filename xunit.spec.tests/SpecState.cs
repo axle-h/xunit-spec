@@ -1,4 +1,4 @@
-namespace xunit.spec.Tests
+namespace Xunit.Spec.Tests
 {
-    internal enum SpecState { Arranging, Acting, Testing, Cleaning, Finished }
+    internal enum SpecState { Initializing, Arranging, Acting, Testing, Cleaning, Finished }
 }

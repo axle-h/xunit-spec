@@ -1,8 +1,7 @@
 ﻿using Autofac;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace xunit.spec
+namespace Xunit.Spec
 {
     /// <inheritdoc />
     /// <summary>
@@ -50,11 +49,11 @@ namespace xunit.spec
         /// <summary>
         /// Determines whether any service was resolved.
         /// </summary>
-        [TestMethod] public void It_should_resolve_some_service() => _service.Should().NotBeNull();
+        [Fact] public void It_should_resolve_some_service() => _service.Should().NotBeNull();
 
         /// <summary>
         /// Determines whether the correct service was resolved.
         /// </summary>
-        [TestMethod] public void It_should_resolve_correct_service() => _service.Should().BeOfType<TConcreteService>();
+        [Fact] public void It_should_resolve_correct_service() => _service.Should().BeOfType<TConcreteService>();
     }
 }
