@@ -23,6 +23,9 @@ namespace Xunit.Spec.Base
         private bool _initialized;
         private Action _cleanUp;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fixture"/> class.
+        /// </summary>
         public Fixture()
         {
             _store = new ConcurrentDictionary<string, object>();
@@ -101,6 +104,9 @@ namespace Xunit.Spec.Base
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             _cleanUp?.Invoke();

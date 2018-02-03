@@ -4,17 +4,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageTitle>xunit.spec.automapper</PackageTitle>
     <PackageId>xunit.spec.automapper</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <Version>1.0.0</Version>
     <Authors>Alex Haslehurst</Authors>
     <Description>Specification based AutoMapper testing with xunit.spec</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>test;testing;specifcation;spec;xunit;automapper;mapping</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <IncludeSource>true</IncludeSource>
-    <PackageProjectUrl>https://github.com/axle-h/xunit.spec</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/axle-h/xunit-spec</PackageProjectUrl>
     <RootNamespace>Xunit.Spec.Automapper</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

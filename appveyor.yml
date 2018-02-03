@@ -10,3 +10,26 @@ test_script:
   - cd xunit.spec.tests
   - dotnet xunit
   - cd ..
+
+for:
+
+# Only deploy on master
+-
+  branches:
+    only:
+      - master
+
+  configuration: Release
+
+  artifacts:
+    - path: artifacts\*.nupkg
+
+  deploy:
+    provider: NuGet
+    api_key:
+      secure: ueYIWhxxemek6tQdQAyR/hpWtHnOfVFbxzns2WulCduWgZAFd8XqEuT4IIAPLKNo
+    skip_symbols: false
+
+# Fallback required to build on all other branches.
+-
+  configuration: Debug

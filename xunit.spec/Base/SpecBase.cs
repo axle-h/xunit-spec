@@ -109,7 +109,11 @@ namespace Xunit.Spec.Base
         /// <returns></returns>
         [DebuggerStepThrough]
         internal abstract Task<TResult> ActInternalAsync(TSubject subject);
-        
+
+        /// <summary>
+        /// Called immediately after the class has been created, before it is used.
+        /// </summary>
+        /// <returns></returns>
         public async Task InitializeAsync()
         {
             await Fixture.SetupAsync<TSubject, TResult>(ArrangeAsync,
