@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\xunit.spec.automapper\xunit.spec.automapper.csproj" />
     <ProjectReference Include="..\xunit.spec\xunit.spec.csproj" />
   </ItemGroup>
 

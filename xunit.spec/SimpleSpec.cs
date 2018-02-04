@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Bogus;
+using AutoFixture;
 
 namespace Xunit.Spec
 {
@@ -9,9 +9,10 @@ namespace Xunit.Spec
     public abstract class SimpleSpec : IAsyncLifetime
     {
         /// <summary>
-        /// A non-generic faker instance for convenience.
+        /// An auto fixture instance for convenience.
+        /// Customizations should be done in the arrange step.
         /// </summary>
-        protected readonly Faker Faker = new Faker();
+        protected Fixture Fixture { get; } = new Fixture();
 
         /// <summary>
         /// Arranges the specification.

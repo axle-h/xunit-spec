@@ -21,8 +21,8 @@ namespace Xunit.Spec
         /// <summary>
         /// Initializes a new instance of the <see cref="FixtureSpec{TSubject}"/> class.
         /// </summary>
-        /// <param name="fixture"></param>
-        protected FixtureSpec(Fixture fixture) : base(fixture)
+        /// <param name="specFixture"></param>
+        protected FixtureSpec(SpecFixture specFixture) : base(specFixture)
         {
         }
 
@@ -50,8 +50,8 @@ namespace Xunit.Spec
         /// <summary>
         /// Initializes a new instance of the <see cref="FixtureSpec{TSubject}"/> class.
         /// </summary>
-        /// <param name="fixture"></param>
-        protected SyncFixtureSpec(Fixture fixture) : base(fixture)
+        /// <param name="specFixture"></param>
+        protected SyncFixtureSpec(SpecFixture specFixture) : base(specFixture)
         {
         }
 

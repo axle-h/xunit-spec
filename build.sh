@@ -15,4 +15,3 @@ cd ..
 
 # Package
 dotnet pack -c Release -o ../artifacts xunit.spec/xunit.spec.csproj
-dotnet pack -c Release -o ../artifacts xunit.spec.automapper/xunit.spec.automapper.csproj

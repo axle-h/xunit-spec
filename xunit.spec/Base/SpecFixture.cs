@@ -14,7 +14,7 @@ namespace Xunit.Spec.Base
     /// Non-transient specifications share a fixture between tests.
     /// </summary>
     /// <seealso cref="T:System.IDisposable" />
-    public class Fixture : IDisposable
+    public class SpecFixture : IDisposable
     {
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly ConcurrentDictionary<string, object> _store;
@@ -24,9 +24,9 @@ namespace Xunit.Spec.Base
         private Action _cleanUp;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Fixture"/> class.
+        /// Initializes a new instance of the <see cref="SpecFixture"/> class.
         /// </summary>
-        public Fixture()
+        public SpecFixture()
         {
             _store = new ConcurrentDictionary<string, object>();
         }

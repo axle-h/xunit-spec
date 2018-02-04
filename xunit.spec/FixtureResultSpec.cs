@@ -17,15 +17,15 @@ namespace Xunit.Spec
     /// <typeparam name="TSubject">The type of the subject.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     /// <seealso cref="SpecBase{TSubject,TResult}" />
-    /// <seealso cref="Fixture" />
+    /// <seealso cref="SpecFixture" />
     /// <inheritdoc cref="SpecBase{TSubject,TResult}" />
     public abstract class FixtureResultSpec<TSubject, TResult> : FixtureSpecBase<TSubject, TResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FixtureSpec{TSubject}"/> class.
         /// </summary>
-        /// <param name="fixture"></param>
-        protected FixtureResultSpec(Fixture fixture) : base(fixture)
+        /// <param name="specFixture"></param>
+        protected FixtureResultSpec(SpecFixture specFixture) : base(specFixture)
         {
         }
 
@@ -50,8 +50,8 @@ namespace Xunit.Spec
         /// <summary>
         /// Initializes a new instance of the <see cref="FixtureSpec{TSubject}"/> class.
         /// </summary>
-        /// <param name="fixture"></param>
-        protected SyncFixtureResultSpec(Fixture fixture) : base(fixture)
+        /// <param name="specFixture"></param>
+        protected SyncFixtureResultSpec(SpecFixture specFixture) : base(specFixture)
         {
         }
 

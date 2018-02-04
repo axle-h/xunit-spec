@@ -8,7 +8,7 @@ namespace Xunit.Spec.Tests
 {
     /// <summary>
     /// This demonstrates running a fixture spec.
-    /// A fixture spec uses a class fixture i.e. shares a single <see cref="Fixture"/> instance between all tests in the class.
+    /// A fixture spec uses a class fixture i.e. shares a single <see cref="SpecFixture"/> instance between all tests in the class.
     /// Since xunit will create a new instance of the test class per test we cannot use any instance variables safely.
     /// Instead we must use the context 
     /// </summary>
@@ -17,7 +17,7 @@ namespace Xunit.Spec.Tests
     {
         private readonly ITestOutputHelper _output;
 
-        public When_running_a_fixture_spec(Fixture fixture, ITestOutputHelper output) : base(fixture)
+        public When_running_a_fixture_spec(SpecFixture fixture, ITestOutputHelper output) : base(fixture)
         {
             _output = output;
         }

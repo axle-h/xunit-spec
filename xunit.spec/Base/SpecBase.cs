@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Autofac.Core;
 using Autofac.Extras.Moq;
-using Bogus;
+using AutoFixture;
 
 namespace Xunit.Spec.Base
 {
@@ -25,23 +25,24 @@ namespace Xunit.Spec.Base
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecBase{TSubject, TResult}" /> class.
         /// </summary>
-        /// <param name="fixture">The fixture.</param>
+        /// <param name="specFixture">The fixture.</param>
         /// <param name="disposeFixture">if set to <c>true</c> [dispose fixture].</param>
-        protected SpecBase(Fixture fixture, bool disposeFixture)
+        protected SpecBase(SpecFixture specFixture, bool disposeFixture)
         {
-            Fixture = fixture;
+            SpecFixture = specFixture;
             _disposeFixture = disposeFixture;
         }
 
         /// <summary>
         /// Gets the test fixture.
         /// </summary>
-        protected Fixture Fixture { get; }
+        protected SpecFixture SpecFixture { get; }
 
         /// <summary>
-        /// A non-generic faker instance for convenience.
+        /// An auto fixture instance for convenience.
+        /// Customizations should be done in the arrange step.
         /// </summary>
-        protected Faker Faker { get; } = new Faker();
+        protected Fixture Fixture { get; } = new Fixture();
         
         /// <summary>
         /// Gets the result from the fixture.
@@ -49,7 +50,7 @@ namespace Xunit.Spec.Base
         /// <value>
         /// The result from the fixture.
         /// </value>
-        protected TResult Result => (TResult) Fixture.Result;
+        protected TResult Result => (TResult) SpecFixture.Result;
 
         /// <summary>
         /// Gets the exception of the specified type that was thown by the act step of this specification.
@@ -57,7 +58,7 @@ namespace Xunit.Spec.Base
         /// <value>
         /// The exception of the specified type that was thrown by the act step of this specification
         /// </value>
-        protected TException Exception<TException>() where TException : Exception => (TException) Fixture.Exception;
+        protected TException Exception<TException>() where TException : Exception => (TException) SpecFixture.Exception;
 
         /// <summary>
         /// Gets the exception that was thrown by the act step of this specification.
@@ -65,7 +66,7 @@ namespace Xunit.Spec.Base
         /// <value>
         /// The exception that was thrown by the act step of this specification
         /// </value>
-        protected Exception Exception() => Fixture.Exception;
+        protected Exception Exception() => SpecFixture.Exception;
 
         /// <summary>
         /// Adds an assertion that an exception should be thrown when this specification is run.
@@ -116,7 +117,7 @@ namespace Xunit.Spec.Base
         /// <returns></returns>
         public async Task InitializeAsync()
         {
-            await Fixture.SetupAsync<TSubject, TResult>(ArrangeAsync,
+            await SpecFixture.SetupAsync<TSubject, TResult>(ArrangeAsync,
                                                          ActInternalAsync,
                                                          () => _parameters.ToArray(),
                                                          () => _shouldThrow,
@@ -132,7 +133,7 @@ namespace Xunit.Spec.Base
         {
             if (_disposeFixture)
             {
-                Fixture.Dispose();
+                SpecFixture.Dispose();
             }
             return Task.CompletedTask;
         }

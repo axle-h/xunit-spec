@@ -9,8 +9,6 @@ namespace Xunit.Spec
     /// </summary>
     /// <typeparam name="TService">The type of the service.</typeparam>
     /// <typeparam name="TConcreteService">The type of the concrete service.</typeparam>
-    /// <seealso cref="T:xunit.spec.BasicSpec" />
-    /// <seealso cref="T:System.IDisposable" />
     public abstract class WiringSpec<TService, TConcreteService> : SimpleSpec
         where TConcreteService : TService
     {

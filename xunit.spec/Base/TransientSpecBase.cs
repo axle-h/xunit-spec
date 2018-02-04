@@ -14,7 +14,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="TransientSpecBase{TSubject, TResult}" /> class.
         /// </summary>
-        protected TransientSpecBase() : base(new Fixture(), true)
+        protected TransientSpecBase() : base(new SpecFixture(), true)
         {
         }
     }

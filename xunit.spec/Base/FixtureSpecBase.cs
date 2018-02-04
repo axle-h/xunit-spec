@@ -12,13 +12,13 @@ namespace Xunit.Spec.Base
     /// </summary>
     /// <typeparam name="TSubject">The type of the subject.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public abstract class FixtureSpecBase<TSubject, TResult> : SpecBase<TSubject, TResult>, IClassFixture<Fixture>
+    public abstract class FixtureSpecBase<TSubject, TResult> : SpecBase<TSubject, TResult>, IClassFixture<SpecFixture>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FixtureSpecBase{TSubject, TResult}"/> class.
         /// </summary>
-        /// <param name="fixture">The fixture.</param>
-        protected FixtureSpecBase(Fixture fixture) : base(fixture, false)
+        /// <param name="specFixture">The fixture.</param>
+        protected FixtureSpecBase(SpecFixture specFixture) : base(specFixture, false)
         {
         }
 
@@ -31,7 +31,7 @@ namespace Xunit.Spec.Base
         protected TData Get<TData>(string key = null)
         {
             var keyString = key ?? typeof(TData).FullName;
-            if (!Fixture.TryGetData(keyString, out var value))
+            if (!SpecFixture.TryGetData(keyString, out var value))
             {
                 throw new ArgumentException($"Cannot find fixture data with the key {keyString}", nameof(key));
             }
@@ -50,7 +50,7 @@ namespace Xunit.Spec.Base
         protected void Put<TData>(TData data, string key = null)
         {
             var keyString = key ?? typeof(TData).FullName;
-            Fixture.AddData(keyString, data);
+            SpecFixture.AddData(keyString, data);
         }
     }
 }
