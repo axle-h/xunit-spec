@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Autofac.Extras.Moq;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using Xunit;
 using Xunit.Spec.Util;
 
 namespace Xunit.Spec.Tests

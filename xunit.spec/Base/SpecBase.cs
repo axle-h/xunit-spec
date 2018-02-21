@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autofac.Core;
 using Autofac.Extras.Moq;
 using AutoFixture;
+using Bogus;
 
 namespace Xunit.Spec.Base
 {
@@ -43,7 +44,12 @@ namespace Xunit.Spec.Base
         /// Customizations should be done in the arrange step.
         /// </summary>
         protected Fixture Fixture { get; } = new Fixture();
-        
+
+        /// <summary>
+        /// A bogus faker instance for convenience.
+        /// </summary>
+        protected Faker Faker { get; } = new Faker();
+
         /// <summary>
         /// Gets the result from the fixture.
         /// </summary>

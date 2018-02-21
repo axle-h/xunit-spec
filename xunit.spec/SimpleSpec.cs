@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoFixture;
+using Bogus;
 
 namespace Xunit.Spec
 {
@@ -13,6 +14,11 @@ namespace Xunit.Spec
         /// Customizations should be done in the arrange step.
         /// </summary>
         protected Fixture Fixture { get; } = new Fixture();
+
+        /// <summary>
+        /// A bogus faker instance for convenience.
+        /// </summary>
+        protected Faker Faker { get; } = new Faker();
 
         /// <summary>
         /// Arranges the specification.
